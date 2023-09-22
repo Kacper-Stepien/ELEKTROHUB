@@ -4,7 +4,7 @@ const app = require("./app");
 
 dotenv.config({ path: "./.env" });
 
-const DB = process.env.DATABASE.replace(
+const DB = process.env.DATABASE_URL.replace(
   "<PASSWORD>",
   process.env.DATABASE_PASSWORD
 );
@@ -17,8 +17,7 @@ mongoose
   .catch((err) => {
     console.log(`🔴 DB connection failed: ${err}`);
   });
-
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`🟢 App running on port ${PORT}...`);
 });

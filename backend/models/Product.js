@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Category = require("./categoryModel");
+const Category = require("./Category");
+const Review = require("./Review");
 
 const productSchema = new mongoose.Schema({
   name: {
@@ -47,6 +48,14 @@ const productSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  averageRating: {
+    type: Number,
+    default: 0,
+  },
+  numberOfReviews: {
+    type: Number,
+    default: 0,
+  },
 });
 
 productSchema.pre("save", async function (next) {
@@ -57,6 +66,39 @@ productSchema.pre("save", async function (next) {
 
   next();
 });
+
+reviewSchema.post("save", async function () {
+  await updateProductStats(this.product);
+});
+
+reviewSchema.post("remove", async function () {
+  await updateProductStats(this.product);
+});
+
+const updateProductStats = async (productId) => {
+  const stats = await Review.aggregate([
+    { $match: { product: productId } },
+    {
+      $group: {
+        _id: "$product",
+        numberOfReviews: { $sum: 1 },
+        averageRating: { $avg: "$rating" },
+      },
+    },
+  ]);
+
+  if (stats.length > 0) {
+    await Product.findByIdAndUpdate(productId, {
+      averageRating: stats[0].averageRating,
+      numberOfReviews: stats[0].numberOfReviews,
+    });
+  } else {
+    await Product.findByIdAndUpdate(productId, {
+      averageRating: 0,
+      numberOfReviews: 0,
+    });
+  }
+};
 
 const Product = mongoose.model("Product", productSchema);
 

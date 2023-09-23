@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
+const Address = require("./addressSchema");
 
 dotenv.config({ path: "./.env" });
 
@@ -43,40 +44,8 @@ const userSchema = new mongoose.Schema({
       "Numer telefonu musi składać się z 9 cyfr i nie może zawierać spacji",
     ],
   },
-  postalCode: {
-    type: String,
-    match: [
-      /^[0-9]{2}-[0-9]{3}$/,
-      "Kod pocztowy musi mieć format 00-000 i nie może zawierać spacji",
-    ],
-  },
-  city: {
-    type: String,
-    match: [
-      /^[A-Z][a-ząćęłńóśźż]+$/,
-      "Miasto musi zaczynać się wielką literą i może zawierać tylko litery",
-    ],
-  },
-  street: {
-    type: String,
-    match: [
-      /^[A-Z][a-ząćęłńóśźż]+(\s[A-Z][a-ząćęłńóśźż]+)?$/,
-      "Ulica musi zaczynać się wielką literą i może zawierać tylko litery, może zawierać drugie imię oddzielone spacją",
-    ],
-  },
-  houseNumber: {
-    type: String,
-    match: [
-      /^[0-9]+[a-zA-Z]?$/,
-      "Numer domu musi zaczynać się cyfrą i może zawierać małą literę na końcu",
-    ],
-  },
-  apartmentNumber: {
-    type: String,
-    match: [
-      /^[0-9]+[a-zA-Z]?$/,
-      "Numer mieszkania musi zaczynać się cyfrą i może zawierać małą literę na końcu",
-    ],
+  address: {
+    type: Address,
   },
   isAdmin: {
     type: Boolean,

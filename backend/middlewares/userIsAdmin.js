@@ -1,6 +1,6 @@
 const catchAsync = require("../utils/catchAsync");
 
-userIsAdmin = catchAsync(async (req, res, next) => {
+const userIsAdmin = catchAsync(async (req, res, next) => {
   if (!req.user.isAdmin) {
     return res.status(403).json({
       status: "error",

@@ -192,7 +192,10 @@ exports.getProductByName = catchAsync(async (req, res, next) => {
 // @route    GET /api/products
 // @access   Public
 exports.getAllProducts = catchAsync(async (req, res, next) => {
-  const products = await Product.find();
+  const products = await Product.find()
+    .skip(req.pagination.skip)
+    .limit(req.pagination.limit)
+    .sort(req.sort);
   res.status(200).json({
     status: "success",
     products,
@@ -214,7 +217,10 @@ exports.getProductsByCategory = catchAsync(async (req, res, next) => {
     });
   }
 
-  const products = await Product.find({ category });
+  const products = await Product.find({ category })
+    .skip(req.pagination.skip)
+    .limit(req.pagination.limit)
+    .sort(req.sort);
   res.status(200).json({
     status: "success",
     products,

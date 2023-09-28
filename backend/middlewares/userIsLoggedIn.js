@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 
 dotenv.config({ path: "../.env" });
 
-userIsLoggedIn = catchAsync(async (req, res, next) => {
+const userIsLoggedIn = catchAsync(async (req, res, next) => {
   let token = req.cookies.jwt;
 
   if (!token) {

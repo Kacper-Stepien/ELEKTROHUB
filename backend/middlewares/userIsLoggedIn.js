@@ -3,9 +3,9 @@ const catchAsync = require("../utils/catchAsync");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: "../.env" });
 
-exports.userIsLoggedIn = catchAsync(async (req, res, next) => {
+userIsLoggedIn = catchAsync(async (req, res, next) => {
   let token = req.cookies.jwt;
 
   if (!token) {
@@ -27,12 +27,4 @@ exports.userIsLoggedIn = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.userIsAdmin = catchAsync(async (req, res, next) => {
-  if (!req.user.isAdmin) {
-    return res.status(403).json({
-      status: "error",
-      message: "Nie masz uprawnień do wykonania tej operacji",
-    });
-  }
-  next();
-});
+module.exports = userIsLoggedIn;

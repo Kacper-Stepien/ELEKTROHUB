@@ -1,30 +1,19 @@
 const express = require("express");
-const authController = require("../controllers/authController");
 const productController = require("../controllers/productController");
+const userIsLoggedIn = require("../middlewares/userIsLoggedIn");
+const userIsAdmin = require("../middlewares/userIsAdmin");
 
 const router = express.Router();
 
 router
   .route("/")
   .get(productController.getAllProducts)
-  .post(
-    authController.userIsLoggedIn,
-    authController.userIsAdmin,
-    productController.createProduct
-  );
+  .post(userIsLoggedIn, userIsAdmin, productController.createProduct);
 
 router
   .route("/:id")
-  .put(
-    authController.userIsLoggedIn,
-    authController.userIsAdmin,
-    productController.updateProduct
-  )
-  .delete(
-    authController.userIsLoggedIn,
-    authController.userIsAdmin,
-    productController.deleteProduct
-  );
+  .put(userIsLoggedIn, userIsAdmin, productController.updateProduct)
+  .delete(userIsLoggedIn, userIsAdmin, productController.deleteProduct);
 
 router.get("/id/:id", productController.getProductById);
 router.get("/name/:name", productController.getProductByName);

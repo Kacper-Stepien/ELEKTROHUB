@@ -16,6 +16,13 @@ exports.userIsLoggedIn = catchAsync(async (req, res, next) => {
   }
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  if (!decoded) {
+    return res.status(401).json({
+      status: "error",
+      message: "Nie jesteś zalogowany",
+    });
+  }
+
   req.user = await User.findById(decoded.id);
   next();
 });

@@ -67,39 +67,6 @@ productSchema.pre("save", async function (next) {
   next();
 });
 
-reviewSchema.post("save", async function () {
-  await updateProductStats(this.product);
-});
-
-reviewSchema.post("remove", async function () {
-  await updateProductStats(this.product);
-});
-
-const updateProductStats = async (productId) => {
-  const stats = await Review.aggregate([
-    { $match: { product: productId } },
-    {
-      $group: {
-        _id: "$product",
-        numberOfReviews: { $sum: 1 },
-        averageRating: { $avg: "$rating" },
-      },
-    },
-  ]);
-
-  if (stats.length > 0) {
-    await Product.findByIdAndUpdate(productId, {
-      averageRating: stats[0].averageRating,
-      numberOfReviews: stats[0].numberOfReviews,
-    });
-  } else {
-    await Product.findByIdAndUpdate(productId, {
-      averageRating: 0,
-      numberOfReviews: 0,
-    });
-  }
-};
-
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;

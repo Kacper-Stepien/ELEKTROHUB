@@ -1,5 +1,6 @@
 const express = require("express");
 const productController = require("../controllers/productController");
+const reviewController = require("../controllers/reviewController");
 const userIsLoggedIn = require("../middlewares/userIsLoggedIn");
 const userIsAdmin = require("../middlewares/userIsAdmin");
 const pagination = require("../middlewares/pagination");
@@ -27,5 +28,10 @@ router.get(
   sorting,
   productController.getProductsByCategory
 );
+
+router
+  .route("/:id/reviews")
+  .get(reviewController.getReviews)
+  .post(userIsLoggedIn, reviewController.createReview);
 
 module.exports = router;

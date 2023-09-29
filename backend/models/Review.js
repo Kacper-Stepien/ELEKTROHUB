@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const Product = require("./Product");
 const User = require("./User");
+const Product = require("./Product");
 const Order = require("./Order");
 
 const reviewSchema = new mongoose.Schema({
@@ -14,6 +14,10 @@ const reviewSchema = new mongoose.Schema({
     ref: "User",
     required: [true, "Użytkownik jest wymagany"],
   },
+  title: {
+    type: String,
+    required: [true, "Tytuł jest wymagany"],
+  },
   rating: {
     type: Number,
     required: [true, "Ocena jest wymagana"],
@@ -24,11 +28,19 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     required: [true, "Komentarz jest wymagany"],
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 reviewSchema.index({ product: 1, user: 1 }, { unique: true });
 
 reviewSchema.pre("save", async function (next) {
+  const Product = mongoose.model("Product");
+  const User = mongoose.model("User");
+  const Order = mongoose.model("Order");
+
   // Check if product exists
   const product = await Product.findById(this.product);
   if (!product) {
@@ -63,6 +75,8 @@ reviewSchema.post("remove", async function () {
 });
 
 const updateProductStats = async (productId) => {
+  const Product = mongoose.model("Product");
+
   const stats = await Review.aggregate([
     { $match: { product: productId } },
     {

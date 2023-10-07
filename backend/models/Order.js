@@ -61,12 +61,10 @@ const orderSchema = new mongoose.Schema({
   },
   deliveryPrice: {
     type: Number,
-    required: [true, "Cena dostawy jest wymagana"],
     min: [0, "Cena nie może być ujemna"],
   },
   totalPrice: {
     type: Number,
-    required: [true, "Cena jest wymagana"],
     min: [0, "Cena nie może być ujemna"],
   },
   isPaid: {
@@ -90,47 +88,53 @@ const orderSchema = new mongoose.Schema({
 });
 
 orderSchema.pre("save", async function (next, session) {
+  console.log(this.session);
   const user = await User.findById(this.customer).session(session);
   if (!user) {
-    return next(new Error("Użytkownik nie istnieje"));
-  }
-  next();
-});
-
-orderSchema.pre("save", async function (next, session) {
-  try {
-    const productPromises = this.items.map(async (item) => {
-      const product = await Product.findById(item.product).session(session);
-      if (!product || product.stock < item.quantity) {
-        throw new Error(
-          `Produkt ${product.name} jest niedostępny w takiej ilości. Dostępna ilość: ${product.stock}`
-        );
-      }
-      product.stock -= item.quantity;
-      return product.save({ session });
+    return res.status(404).json({
+      status: "fail",
+      message: "Nie znaleziono użytkownika",
     });
-
-    await Promise.all(productPromises);
-    next();
-  } catch (error) {
-    throw new Error(error);
   }
-});
-
-orderSchema.pre("save", function (next, session) {
-  this.totalPrice = this.items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-
-  if (this.totalPrice >= 200) {
-    this.deliveryPrice = 0;
-  }
-
-  this.totalPrice += this.deliveryPrice;
-  this.paymentOnDelivery = this.paymentMethod === "Gotówka";
   next();
 });
+
+// orderSchema.pre("save", async function (next, session) {
+//   try {
+//     const productPromises = this.items.map(async (item) => {
+//       const product = await Product.findById(item.product).session(session);
+//       if (!product || product.stock < item.quantity) {
+//         throw new Error(
+//           `Produkt ${product.name} jest niedostępny w takiej ilości. Dostępna ilość: ${product.stock}`
+//         );
+//       }
+//       product.stock -= item.quantity;
+//       return product.save({ session });
+//     });
+
+//     await Promise.all(productPromises);
+//     next();
+//   } catch (error) {
+//     throw new Error(error);
+//   }
+// });
+
+// orderSchema.pre("save", async function (next, session) {
+//   this.totalPrice = this.items.reduce(
+//     (acc, item) => acc + item.price * item.quantity,
+//     0
+//   );
+
+//   if (this.totalPrice >= 200) {
+//     this.deliveryPrice = 0;
+//   }
+
+//   this.totalPrice += this.deliveryPrice;
+//   this.paymentOnDelivery = this.paymentMethod === "Gotówka";
+
+//   await this.save({ session });
+//   next();
+// });
 
 orderSchema.pre("findOneAndUpdate", async function (next, session) {
   try {

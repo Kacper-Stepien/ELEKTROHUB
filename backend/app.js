@@ -12,6 +12,7 @@ const userRouter = require("./routes/userRoutes");
 const categoryRouter = require("./routes/categoryRoutes");
 const productRouter = require("./routes/productRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
+const orderRouter = require("./routes/orderRoutes");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/api/users", userRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/products", productRouter);
 app.use("/api/reviews", reviewRouter);
+app.use("/api/orders", orderRouter);
 
 app.use((err, req, res, next) => {
   console.log(`🔴 Error: ${err.message}`);

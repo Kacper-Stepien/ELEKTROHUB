@@ -18,7 +18,7 @@ const SwitchThemeButton = () => {
 
   return (
     <button
-      className="btn btn-outline-secondary text-blue-950 dark:text-blue-100 text-md justify-self-end "
+      className="btn btn-outline-secondary text-blue-950 dark:text-blue-100 text-md justify-self-end hover:scale-125 transition-all"
       onClick={toggleTheme}
     >
       {theme === "light" ? <FaMoon className="" /> : <FaSun className="" />}

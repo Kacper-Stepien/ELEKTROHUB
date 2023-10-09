@@ -1,6 +1,6 @@
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import ProfileButton from "./ProfileButton";
 import SwitchThemeButton from "./SwitchThemeButton";
 
 const NavbarMenu = () => {
@@ -16,13 +16,9 @@ const NavbarMenu = () => {
           <p>Ulubione</p>
         </button>
       </div>
-      <div className="text-xs dark:text-blue-100 flex items-center gap-2 hover:cursor-pointer group">
-        <div>
-          <p className="font-bold text-sm">Moje konto</p>
-          <div className="col-start-1">Zaloguj/Zarejestruj</div>
-        </div>
-        <MdOutlineKeyboardArrowDown className="text-2xl group-hover:scale-110 group-hover:translate-x-4 transition-all" />
-      </div>
+
+      <ProfileButton />
+
       <SwitchThemeButton />
     </div>
   );

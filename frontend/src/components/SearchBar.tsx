@@ -2,7 +2,7 @@ import { FaSearch } from "react-icons/fa";
 
 const SearchBar = () => {
   return (
-    <div className="rounded-md w-96 bg-gray-200 flex items-center justify-between border-solid border-1 border-gray-200  ">
+    <div className="rounded-md w-96 bg-gray-200 flex items-center justify-between border-solid border-1 border-gray-200 min-w-[20rem] ">
       <input
         type="text"
         placeholder="Wyszukaj w sklepie"

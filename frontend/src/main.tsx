@@ -6,6 +6,7 @@ import AppLayout from "./ui/AppLayout.tsx";
 import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import RegisterPage from "./pages/RegisterPage.tsx";
 import store from "./store/store";
 
 const router = createBrowserRouter([
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <div>home</div> },
       { path: "/login", element: <div>login</div> },
-      { path: "/register", element: <div>register</div> },
+      { path: "/register", element: <RegisterPage /> },
       { path: "/cart", element: <div>cart</div> },
       { path: "/products", element: <div>products</div> },
       { path: "/products/:id", element: <div>product</div> },

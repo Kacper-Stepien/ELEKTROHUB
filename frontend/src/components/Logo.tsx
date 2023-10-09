@@ -7,14 +7,14 @@ const Logo = () => {
   if (theme === "dark") {
     return (
       <div>
-        <img src={LogoLight} alt="Logo" className="w-24 md:w-36" />
+        <img src={LogoLight} alt="Logo" className=" w-36" />
       </div>
     );
   }
 
   return (
     <div>
-      <img src={LogoDark} alt="Logo" className="w-24 md:w-36" />
+      <img src={LogoDark} alt="Logo" className="w-36" />
     </div>
   );
 };

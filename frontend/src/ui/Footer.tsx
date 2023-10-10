@@ -1,8 +1,8 @@
 const Footer = () => {
   return (
-    <footer className="bg-blue-600 px-4 py-2 md:px-6 md:py-4 text-blue-100 text-xs grid  grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    <footer className="bg-blue-600 px-4 py-4 md:px-6 md:py-6 3xl:px-12 3xl:py-12 text-blue-100 text-sm 3xl:text-lg grid  grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
       <div className="flex flex-col gap-1">
-        <p className="font-bold text-sm mb-2">Obsługa klienta</p>
+        <p className="font-bold text-md 3xl:text-xl  mb-2">Obsługa klienta</p>
         <p>Kontakt</p>
         <p>Status zamówienia</p>
         <p>Reklamacje</p>
@@ -10,7 +10,7 @@ const Footer = () => {
         <p>Akcje serwisowe</p>
       </div>
       <div className="flex flex-col gap-1">
-        <p className="font-bold text-sm mb-2">Informacje</p>
+        <p className="font-bold text-md 3xl:text-xl  mb-2">Informacje</p>
         <p>Praca</p>
         <p>Centrum informacyjne</p>
         <p>O firmie</p>
@@ -18,14 +18,14 @@ const Footer = () => {
         <p>Newsletter - regulamin</p>
       </div>
       <div className="flex flex-col gap-1">
-        <p className="font-bold text-sm mb-2">Zakupy</p>
+        <p className="font-bold text-md 3xl:text-xl  mb-2">Zakupy</p>
         <p>Producenci</p>
         <p>Raty</p>
         <p>Leasing</p>
         <p>Ubezpieczenie "Gwarancja Plus"</p>
       </div>
       <div className="flex flex-col gap-1">
-        <p className="font-bold text-sm mb-2">Moje konto</p>
+        <p className="font-bold text-md 3xl:text-xl  mb-2">Moje konto</p>
         <p>Moje zamówienie</p>
         <p>Paragon i faktura</p>
         <p>Moje dane </p>
@@ -33,7 +33,7 @@ const Footer = () => {
         <p>Moje reklamacje</p>
       </div>
       <div className="flex flex-col gap-1">
-        <p className="font-bold text-sm mb-2">Pomoc</p>
+        <p className="font-bold text-md 3xl:text-xl  mb-2">Pomoc</p>
         <p>Zadzwoń do nas</p>
         <p className="font-bold">Tel. 782 748 757</p>
         <table>

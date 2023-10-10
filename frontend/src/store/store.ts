@@ -1,11 +1,15 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import { configureStore } from "@reduxjs/toolkit";
+import loadingReucer from "./features/loadingSlice";
+import notificationReducer from "./features/notificationSlice";
 import themeReducer from "./features/themeSlice";
 
 const store = configureStore({
   reducer: {
     theme: themeReducer,
+    loading: loadingReucer,
+    notification: notificationReducer,
   },
 });
 

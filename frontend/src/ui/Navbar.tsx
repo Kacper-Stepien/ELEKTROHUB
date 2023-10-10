@@ -4,7 +4,7 @@ import SearchBar from "../components/SearchBar";
 
 const Navbar = () => {
   return (
-    <nav className="flex items-center justify-between gap-8 px-4 py-2 md:px-8 md:py-6">
+    <nav className="flex items-center justify-between gap-8 px-4 py-2 md:px-8 md:py-6 text-md 3xl:text-xl">
       <Logo />
       <SearchBar />
       <NavbarMenu />

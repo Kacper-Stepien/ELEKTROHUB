@@ -10,6 +10,9 @@ export default {
       colors: {
         primaryDark: "#0F172A",
       },
+      screens: {
+        "3xl": "1800px",
+      },
     },
   },
   plugins: [],

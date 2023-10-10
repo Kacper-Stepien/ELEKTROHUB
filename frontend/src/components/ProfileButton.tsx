@@ -11,36 +11,36 @@ const ProfileButton = () => {
 
   return (
     <div
-      className="text-sm dark:text-blue-100 flex items-center gap-2 hover:cursor-pointer group relative"
+      className=" dark:text-blue-100 flex items-center gap-2 hover:cursor-pointer group relative"
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
     >
       <div>
-        <p className="font-bold text-sm">Moje konto</p>
+        <p className="font-bold ">Moje konto</p>
         <div className="col-start-1">Zaloguj/Zarejestruj</div>
       </div>
       <MdOutlineKeyboardArrowDown className="text-2xl group-hover:scale-110 group-hover:translate-x-4 transition-all" />
       {isHovering && (
-        <ul className="absolute top-full text-gray-900 bg-blue-100 w-full rounded-md px-2 py-4 flex flex-col gap-2 shadow-md">
-          <li>
+        <ul className="absolute top-full text-gray-900 bg-blue-50 w-full rounded-md px-2 py-4 flex flex-col gap-2 shadow-md">
+          <li className="hover:underline transition">
             <Link to="/">Zamówienia</Link>
           </li>
-          <li>
+          <li className="hover:underline transition">
             <Link to="/">Paragony i faktury</Link>
           </li>
-          <li>
+          <li className="hover:underline transition">
             <Link to="/">Moje dane</Link>
           </li>
-          <li>
+          <li className="hover:underline transition">
             <Link to="/">Kupony rabatowe</Link>
           </li>
-          <li>
+          <li className="hover:underline transition">
             <Link to="/">Opinie</Link>
           </li>
-          <li>
+          <li className="hover:underline transition">
             <Link to="/">Reklamacje</Link>
           </li>
-          <li>
+          <li className="hover:underline transition">
             <Link to="/">Zwroty</Link>
           </li>
         </ul>

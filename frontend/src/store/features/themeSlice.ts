@@ -1,9 +1,12 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-
 import { ThemeState } from "../../types/ThemeState";
+import { createSlice } from "@reduxjs/toolkit";
+import { getThemeFromLocalStorage } from "./../../utils/GetThemeFromLocalStorage";
+
+const themeFromLocalStorage = getThemeFromLocalStorage();
+console.log("themeFromLocalStorage", themeFromLocalStorage);
 
 const initialState: ThemeState = {
-  theme: localStorage.getItem("ElektroHub:theme") || "dark",
+  theme: themeFromLocalStorage,
 };
 
 if (initialState.theme === "dark") {
@@ -14,17 +17,14 @@ const ThemeSlice = createSlice({
   name: "theme",
   initialState,
   reducers: {
-    setTheme(state, action: PayloadAction<{ theme: string }>) {
-      state.theme = action.payload.theme;
-      localStorage.setItem("ElektroHub:theme", action.payload.theme);
-      if (action.payload.theme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
+    setThemeDark(state) {
+      state.theme = "dark";
+    },
+    setThemeLight(state) {
+      state.theme = "light";
     },
   },
 });
 
-export const { setTheme } = ThemeSlice.actions;
+export const { setThemeDark, setThemeLight } = ThemeSlice.actions;
 export default ThemeSlice.reducer;

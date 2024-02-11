@@ -7,6 +7,7 @@ const addressSchema = new mongoose.Schema({
       /^[0-9]{2}-[0-9]{3}$/,
       "Kod pocztowy musi mieć format 00-000 i nie może zawierać spacji",
     ],
+    required: [true, "Kod pocztowy jest wymagany"],
   },
   city: {
     type: String,
@@ -14,6 +15,7 @@ const addressSchema = new mongoose.Schema({
       /^[A-Z][a-ząćęłńóśźż]+$/,
       "Miasto musi zaczynać się wielką literą i może zawierać tylko litery",
     ],
+    required: [true, "Miasto jest wymagane"],
   },
   street: {
     type: String,

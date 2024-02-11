@@ -36,6 +36,31 @@ exports.register = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.changeAddress = catchAsync(async (req, res, next) => {
+  const { postalCode, city, street, houseNumber, apartmentNumber } = req.body;
+  if (!postalCode || !city || (!houseNumber && !apartmentNumber)) {
+    return res.status(400).json({
+      status: "error",
+      message: "Prosze podać wszystkie wymagane dane do rejestracji",
+    });
+  }
+  const user = await User.findById(req.user._id);
+  user.address = {
+    postalCode,
+    city,
+    street,
+    houseNumber,
+    apartmentNumber,
+  };
+  await user.save();
+  res.status(200).json({
+    status: "success",
+    data: {
+      user,
+    },
+  });
+});
+
 // @desc     Login user
 // @route    POST /api/users/login
 // @access   Public
@@ -67,8 +92,6 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 
   user.password = undefined;
-  user.isAdmin = undefined;
-  user.createdAt = undefined;
   user.lastLogin = undefined;
 
   return res.status(200).json({

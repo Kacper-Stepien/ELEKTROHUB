@@ -16,6 +16,11 @@ UserController.route("/me")
   .put(userIsLoggedIn, userController.updateMe)
   .delete(userIsLoggedIn, userController.deleteMe);
 
+UserController.route("/address").patch(
+  userIsLoggedIn,
+  userController.changeAddress
+);
+
 UserController.get(
   "/",
   userIsLoggedIn,

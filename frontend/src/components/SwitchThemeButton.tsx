@@ -1,7 +1,6 @@
 import { FaMoon, FaSun } from "react-icons/fa";
+import { setThemeDark, setThemeLight } from "../store/features/themeSlice";
 import { useAppDispatch, useAppSelector } from "../store/store";
-
-import { setTheme } from "../store/features/themeSlice";
 
 const SwitchThemeButton = () => {
   const theme = useAppSelector((state) => state.theme.theme);
@@ -10,9 +9,13 @@ const SwitchThemeButton = () => {
 
   const toggleTheme = () => {
     if (theme === "light") {
-      dispatch(setTheme({ theme: "dark" }));
+      dispatch(setThemeDark());
+      localStorage.setItem("ElektroHub:theme", "dark");
+      document.documentElement.classList.add("dark");
     } else {
-      dispatch(setTheme({ theme: "light" }));
+      dispatch(setThemeLight());
+      localStorage.setItem("ElektroHub:theme", "light");
+      document.documentElement.classList.remove("dark");
     }
   };
 

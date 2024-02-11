@@ -1,8 +1,5 @@
+import { LoadingState } from "../../types/LoadingState";
 import { createSlice } from "@reduxjs/toolkit";
-
-export interface LoadingState {
-  loading: boolean;
-}
 
 const initialState: LoadingState = {
   loading: false,

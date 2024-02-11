@@ -4,9 +4,11 @@ import { configureStore } from "@reduxjs/toolkit";
 import loadingReucer from "./features/loadingSlice";
 import notificationReducer from "./features/notificationSlice";
 import themeReducer from "./features/themeSlice";
+import userSlice from "./features/userSlice";
 
 const store = configureStore({
   reducer: {
+    user: userSlice,
     theme: themeReducer,
     loading: loadingReucer,
     notification: notificationReducer,

@@ -1,8 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-export interface ThemeState {
-  theme: string;
-}
+import { ThemeState } from "../../types/ThemeState";
 
 const initialState: ThemeState = {
   theme: localStorage.getItem("ElektroHub:theme") || "dark",

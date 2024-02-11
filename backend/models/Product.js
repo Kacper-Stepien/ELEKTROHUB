@@ -63,7 +63,6 @@ productSchema.pre("save", async function (next) {
   if (!category) {
     return next(new Error("Kategoria nie istnieje"));
   }
-
   next();
 });
 

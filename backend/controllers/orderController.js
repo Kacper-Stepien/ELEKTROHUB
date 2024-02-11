@@ -1,41 +1,12 @@
-const mongoose = require("mongoose");
-const Order = require("../models/Order");
-const catchAsync = require("../utils/catchAsync");
+const express = require("express");
+const orderController = require("../services/orderService");
+const userIsLoggedIn = require("../middlewares/userIsLoggedIn");
+const pagination = require("../middlewares/pagination");
 
-// @desc     Create new order
-// @route    POST /api/orders
-// @access   Private
-exports.createOrder = catchAsync(async (req, res, next) => {
-  const userId = req.user._id;
+const OrderController = express.Router();
 
-  const { items, paymentMethod, address } = req.body;
+OrderController.route("/").post(userIsLoggedIn, orderController.createOrder);
 
-  const session = await mongoose.startSession();
-  session.startTransaction();
+// router.route("/:id").get();
 
-  try {
-    // Create order
-    const order = await Order.create(
-      [{ items, paymentMethod, address, customer: userId }],
-      { session }
-    );
-
-    await session.commitTransaction();
-    session.endSession();
-
-    res.status(201).json({
-      status: "success",
-      data: {
-        order,
-      },
-    });
-  } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
-    console.log(`🔴 Error: ${error.message}`);
-    res.status(400).json({
-      status: "fail",
-      message: error.message,
-    });
-  }
-});
+module.exports = OrderController;

@@ -8,11 +8,11 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 
-const userRouter = require("./routes/userRoutes");
-const categoryRouter = require("./routes/categoryRoutes");
-const productRouter = require("./routes/productRoutes");
-const reviewRouter = require("./routes/reviewRoutes");
-const orderRouter = require("./routes/orderRoutes");
+const UserController = require("./controllers/userController");
+const CategoryController = require("./controllers/categoryController");
+const ProductController = require("./controllers/productController");
+const ReviewController = require("./controllers/reviewController");
+const OrderController = require("./controllers/orderController");
 
 const app = express();
 
@@ -29,11 +29,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/users", userRouter);
-app.use("/api/categories", categoryRouter);
-app.use("/api/products", productRouter);
-app.use("/api/reviews", reviewRouter);
-app.use("/api/orders", orderRouter);
+app.use("/api/users", UserController);
+app.use("/api/categories", CategoryController);
+app.use("/api/products", ProductController);
+app.use("/api/reviews", ReviewController);
+app.use("/api/orders", OrderController);
 
 app.use((err, req, res, next) => {
   console.log(`🔴 Error: ${err.message}`);

@@ -6,35 +6,60 @@ export enum NotificationStatus {
   INFO = "info",
 }
 
-export interface NotificationState {
+export interface Notification {
+  id: string;
   message: string;
   type: NotificationStatus;
   visible: boolean;
 }
 
+export interface NotificationState {
+  notifications: Notification[];
+}
+
 const initialState: NotificationState = {
-  message: "",
-  type: NotificationStatus.SUCCESS,
-  visible: false,
+  notifications: [],
 };
 
 const NotificationSlice = createSlice({
   name: "notification",
   initialState,
   reducers: {
-    showNotification(
+    addNotification(
       state,
       action: PayloadAction<{ message: string; type: NotificationStatus }>
     ) {
-      state.message = action.payload.message;
-      state.type = action.payload.type;
-      state.visible = true;
+      const newNotification: Notification = {
+        id: new Date().toISOString(),
+        message: action.payload.message,
+        type: action.payload.type,
+        visible: true,
+      };
+      state.notifications.push(newNotification);
     },
-    hideNotification(state) {
-      state.visible = false;
+    removeNotification(state, action: PayloadAction<{ id: string }>) {
+      state.notifications = state.notifications.filter(
+        (notification) => notification.id !== action.payload.id
+      );
+    },
+    setInvisible(state, action: PayloadAction<{ id: string }>) {
+      const notification = state.notifications.find(
+        (notification) => notification.id === action.payload.id
+      );
+      if (notification) {
+        notification.visible = false;
+      }
+    },
+    clearNotifications(state) {
+      state.notifications = [];
     },
   },
 });
 
-export const { showNotification, hideNotification } = NotificationSlice.actions;
+export const {
+  addNotification,
+  removeNotification,
+  setInvisible,
+  clearNotifications,
+} = NotificationSlice.actions;
 export default NotificationSlice.reducer;

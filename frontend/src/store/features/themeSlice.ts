@@ -1,6 +1,6 @@
 import { ThemeState } from "../../types/ThemeState";
 import { createSlice } from "@reduxjs/toolkit";
-import { getThemeFromLocalStorage } from "./../../utils/GetThemeFromLocalStorage";
+import { getThemeFromLocalStorage } from "../../utils/getThemeFromLocalStorage";
 
 const themeFromLocalStorage = getThemeFromLocalStorage();
 console.log("themeFromLocalStorage", themeFromLocalStorage);

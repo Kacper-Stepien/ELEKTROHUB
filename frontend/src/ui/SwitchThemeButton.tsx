@@ -24,7 +24,11 @@ const SwitchThemeButton = () => {
       className="btn btn-outline-secondary text-blue-950 dark:text-blue-100  justify-self-end hover:scale-125 transition-all"
       onClick={toggleTheme}
     >
-      {theme === "light" ? <FaMoon className="" /> : <FaSun className="" />}
+      {theme === "light" ? (
+        <FaMoon className="" aria-label="ciemny motyw" />
+      ) : (
+        <FaSun className="" aria-label="jasny motyw" />
+      )}
     </button>
   );
 };

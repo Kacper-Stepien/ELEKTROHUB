@@ -4,17 +4,12 @@ import { useAppSelector } from "../store/store";
 
 const Logo = () => {
   const theme = useAppSelector((state) => state.theme.theme);
-  if (theme === "dark") {
-    return (
-      <div>
-        <img src={LogoLight} alt="Logo" className="max-w-[10rem]" />
-      </div>
-    );
-  }
+  console.log(theme);
+  const logoImage = theme === "dark" ? LogoDark : LogoLight;
 
   return (
-    <div>
-      <img src={LogoDark} alt="Logo" className="max-w-[10rem]" />
+    <div className="hover:scale-110 transition-all cursor-pointer">
+      <img src={logoImage} id="Logo" alt="Logo" className="w-full" />
     </div>
   );
 };

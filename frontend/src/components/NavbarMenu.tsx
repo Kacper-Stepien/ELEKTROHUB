@@ -1,24 +1,12 @@
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
-
+import NavbarButtons from "./NavbarButtons";
 import ProfileButton from "./ProfileButton";
-import SwitchThemeButton from "./SwitchThemeButton";
+import SwitchThemeButton from "../ui/SwitchThemeButton";
 
 const NavbarMenu = () => {
   return (
     <div className="flex items-center justify-between gap-16  w-full max-w-2xl">
-      <div className="flex gap-4">
-        <button className="btn btn-outline-secondary text-blue-950 dark:text-blue-100 text-md flex flex-col items-center hover:scale-110 transition-all">
-          <FaShoppingCart className="" />
-          <p>Koszyk</p>
-        </button>
-        <button className="btn btn-outline-secondary text-blue-950 dark:text-blue-100 text-md flex flex-col items-center hover:scale-110 transition-all">
-          <FaHeart className="" />
-          <p>Ulubione</p>
-        </button>
-      </div>
-
       <ProfileButton />
-
+      <NavbarButtons />
       <SwitchThemeButton />
     </div>
   );

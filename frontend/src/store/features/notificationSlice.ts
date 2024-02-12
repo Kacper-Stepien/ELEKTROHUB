@@ -21,13 +21,7 @@ const initialState: NotificationState = {
   notifications: [
     {
       id: "1",
-      message: "Błąd serwera",
-      type: NotificationStatus.ERROR,
-      visible: true,
-    },
-    {
-      id: "2",
-      message: "Zalogowano poprawnie",
+      message: "Witaj w sklepie!",
       type: NotificationStatus.SUCCESS,
       visible: true,
     },

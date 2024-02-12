@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../store/store";
 
 import { useEffect } from "react";
 
-const useNotification = (clearTime: number) => {
+export const useNotification = (clearTime: number) => {
   const dispatch = useAppDispatch();
   const { notifications } = useAppSelector((state) => state.notification);
 
@@ -37,5 +37,3 @@ const useNotification = (clearTime: number) => {
 
   return { addNewNotification, notifications, closeNotificationHandler };
 };
-
-export { useNotification };

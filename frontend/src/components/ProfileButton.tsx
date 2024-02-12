@@ -16,12 +16,12 @@ const ProfileButton = () => {
       onMouseOut={handleMouseOut}
     >
       <div>
-        <p className="font-bold ">Moje konto</p>
-        <div className="col-start-1">Zaloguj/Zarejestruj</div>
+        <p className="font-bold text-md">Moje konto</p>
+        <div className="col-start-1 text-sm">Zaloguj/Zarejestruj</div>
       </div>
       <MdOutlineKeyboardArrowDown className="text-2xl group-hover:scale-110 group-hover:translate-x-4 transition-all" />
       {isHovering && (
-        <ul className="absolute top-full text-gray-900 bg-blue-50 w-full rounded-md px-2 py-4 flex flex-col gap-2 shadow-md">
+        <ul className="absolute top-full text-gray-900 bg-blue-50 w-full rounded-md px-2 py-4 flex flex-col gap-2 shadow-md text-sm">
           <li className="hover:underline transition">
             <Link to="/">Zamówienia</Link>
           </li>

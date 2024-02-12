@@ -18,7 +18,20 @@ export interface NotificationState {
 }
 
 const initialState: NotificationState = {
-  notifications: [],
+  notifications: [
+    {
+      id: "1",
+      message: "Błąd serwera",
+      type: NotificationStatus.ERROR,
+      visible: true,
+    },
+    {
+      id: "2",
+      message: "Zalogowano poprawnie",
+      type: NotificationStatus.SUCCESS,
+      visible: true,
+    },
+  ],
 };
 
 const NotificationSlice = createSlice({

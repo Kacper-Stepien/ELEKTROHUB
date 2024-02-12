@@ -1,48 +1,45 @@
 import {
   NotificationStatus,
-  hideNotification,
+  Notification as NotificationType,
 } from "../store/features/notificationSlice";
-import { useAppDispatch, useAppSelector } from "../store/store";
 
-import { AiFillCloseCircle } from "react-icons/ai";
-import { useEffect } from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import { Colors } from "../types/Colors.enum";
+import { FC } from "react";
 
-const Notification = () => {
-  const dispatch = useAppDispatch();
-  const { message, type, visible } = useAppSelector(
-    (state) => state.notification
-  );
+interface NotificationProps {
+  notification: NotificationType;
+  closeNotificationHandler: (id: string) => void;
+}
 
-  useEffect(() => {
-    if (visible) {
-      setTimeout(() => {
-        dispatch(hideNotification());
-      }, 10500);
-    }
-  }, [visible]);
-
+const Notification: FC<NotificationProps> = ({
+  notification,
+  closeNotificationHandler,
+}) => {
   return (
-    <>
-      <div
-        className={`fixed  bottom-6 right-4 py-4 px-8 rounded-md text-xl shadow-md transition-all duration-500 ${
-          visible ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
-        } ${
-          type === NotificationStatus.SUCCESS
-            ? "bg-green-500"
-            : type === NotificationStatus.ERROR
-            ? "bg-red-500"
-            : "bg-yellow-500"
-        }`}
+    <div
+      key={notification.id}
+      className={`fade-in transform rounded-md px-4 py-4 text-lg shadow-lg transition-all duration-300 ease-in-out md:px-16 2xl:text-xl ${
+        notification.type === NotificationStatus.SUCCESS
+          ? `bg-${Colors.SUCCESS_COLOR}`
+          : notification.type === NotificationStatus.ERROR
+          ? `bg-${Colors.ERROR_COLOR}`
+          : `bg-${Colors.INFO_COLOR}`
+      } 	${
+        notification.visible
+          ? "translate-x-0 opacity-100"
+          : "translate-x-full opacity-0"
+      }`}
+    >
+      <p className="font-medium">{notification.message}</p>
+      <button
+        aria-label="Zamknij powiadomienie"
+        className="0 absolute right-1 top-1 text-2xl transition-all hover:scale-110"
+        onClick={() => closeNotificationHandler(notification.id)}
       >
-        <p className="font-medium">{message}</p>
-        <button
-          className="0 absolute top-1 right-1 text-2xl hover:scale-110 transition-all"
-          onClick={() => dispatch(hideNotification())}
-        >
-          <AiFillCloseCircle />
-        </button>
-      </div>
-    </>
+        <AiOutlineClose />
+      </button>
+    </div>
   );
 };
 

@@ -2,9 +2,10 @@ import Footer from "./Footer";
 import LoadingSpinner from "./LoadingSpinner";
 import Menu from "./Menu";
 import Navbar from "./Navbar";
-import Notification from "./Notification";
 import { Outlet } from "react-router-dom";
 import { useAppSelector } from "../store/store";
+
+// import Notification from "./Notification";
 
 const AppLayout = () => {
   const isLoading = useAppSelector((state) => state.loading.loading);
@@ -24,7 +25,7 @@ const AppLayout = () => {
       </div>
       <Footer />
       {isLoading && <LoadingSpinner />}
-      <Notification />
+      {/* <Notification /> */}
     </div>
   );
 };

@@ -1,7 +1,3 @@
-import {
-  NotificationStatus,
-  showNotification,
-} from "../store/features/notificationSlice";
 import { startLoading, stopLoading } from "../store/features/loadingSlice";
 
 import { BsCheck } from "react-icons/bs";
@@ -9,6 +5,8 @@ import Validator from "../utils/Validator";
 import { useAppDispatch } from "../store/store";
 import useInput from "../hooks/useInput";
 import { useRef } from "react";
+
+// import { NotificationStatus } from "../store/features/notificationSlice";
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();
@@ -103,12 +101,12 @@ const RegisterPage = () => {
 
   const submitFormHandler = async (event: React.FormEvent) => {
     event.preventDefault();
-    dispatch(
-      showNotification({
-        message: "Utworzono konto. Możesz się zalogować.",
-        type: NotificationStatus.SUCCESS,
-      })
-    );
+    // dispatch(
+    //   showNotification({
+    //     message: "Utworzono konto. Możesz się zalogować.",
+    //     type: NotificationStatus.SUCCESS,
+    //   })
+    // );
 
     if (!formIsValid) {
       setFormIsTouched();

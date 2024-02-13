@@ -13,15 +13,15 @@ const AppLayout = () => {
 
   return (
     <div
-      className={`min-h-screen bg-blue-50  dark:bg-primaryDark flex flex-col justify-between ${
-        isLoading ? "overflow-hidden h-screen" : ""
+      className={`flex min-h-screen  flex-col justify-between bg-blue-50 dark:bg-primaryDark ${
+        isLoading ? "h-screen overflow-hidden" : ""
       }`}
     >
       <div>
         <Navbar />
         <CategoriesMenu />
       </div>
-      <div className=" grow px-4 py-4 md:px-6 md:py-6 flex items-center">
+      <div className=" flex grow px-4 py-4 md:px-6 md:py-6 ">
         <Outlet />
       </div>
       <Footer />

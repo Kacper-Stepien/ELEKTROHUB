@@ -4,7 +4,7 @@ import SwitchThemeButton from "../ui/SwitchThemeButton";
 
 const NavbarMenu = () => {
   return (
-    <div className="flex items-center justify-between gap-16  w-full max-w-2xl">
+    <div className="flex w-full max-w-2xl items-center justify-between gap-16">
       <ProfileButton />
       <NavbarButtons />
       <SwitchThemeButton />

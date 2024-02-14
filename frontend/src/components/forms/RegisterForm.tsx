@@ -10,12 +10,13 @@ import {
 import Input from "../../ui/Input";
 import InputErrorMessage from "../../ui/InputErrorMessage";
 import PrimaryButton from "../../ui/PrimaryButtont";
-import { useAppDispatch } from "../../store/store";
+import { registerUser } from "../../api/authApi";
 import { useGlobalLoading } from "../../hooks/useGlobalLoading";
-import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useNotification } from "../../hooks/useNotification";
 
 interface FormInputs {
-  firstName: string;
+  name: string;
   surname: string;
   email: string;
   phone: string;
@@ -25,79 +26,56 @@ interface FormInputs {
 }
 
 const RegisterForm = () => {
-  const { startLoading, stopLoading } = useGlobalLoading();
+  const { startLoadingHandler, stopLoadingHandler } = useGlobalLoading();
+  const { addNewSuccessNotification, addNewErrorNotification } =
+    useNotification(3000);
   const {
     register,
     handleSubmit,
     reset,
     getValues,
-    formState: { errors, isSubmitting, isValid, isSubmitted },
+    formState: { errors, isValid, isSubmitted },
+    setError,
   } = useForm<FormInputs>({
     mode: "onBlur",
   });
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<FormInputs> = (data, event) => {
+  const onSubmit: SubmitHandler<FormInputs> = async (data, event) => {
     event?.preventDefault();
-    console.log(data);
-    // reset();
+    startLoadingHandler();
+    try {
+      const response = await registerUser(data);
+      if (response.statusCode === 409) {
+        setError("email", {
+          type: "manual",
+          message: response.message,
+        });
+        return;
+      }
+      if (!response.success) {
+        throw new Error(response.message || "Coś poszło nie tak");
+      }
+      addNewSuccessNotification(response.message);
+      reset();
+      navigate("/auth/login");
+      addNewSuccessNotification("Możesz się zalogować");
+    } catch (error) {
+      addNewErrorNotification(error);
+    } finally {
+      stopLoadingHandler();
+    }
   };
 
-  const dispatch = useAppDispatch();
-  const form = useRef<HTMLFormElement>(null);
-
-  // const submitFormHandler = async (event: React.FormEvent) => {
-  //   event.preventDefault();
-  //   // dispatch(
-  //   //   showNotification({
-  //   //     message: "Utworzono konto. Możesz się zalogować.",
-  //   //     type: NotificationStatus.SUCCESS,
-  //   //   })
-  //   // );
-
-  //   if (!formIsValid) {
-  //     setFormIsTouched();
-  //     return;
-  //   }
-
-  //   console.log("Formularz został wysłany");
-  //   dispatch(startLoading());
-  //   try {
-  //     const response = await fetch("http://localhost:8000/api/users/register", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         name: firstName,
-  //         surname,
-  //         email,
-  //         phone,
-  //         password,
-  //       }),
-  //     });
-
-  //     const data = await response.json();
-  //     console.log(data);
-  //     if (!response.ok) {
-  //       throw new Error(data.message || "Coś poszło nie tak");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   } finally {
-  //     dispatch(stopLoading());
-  //   }
-  //   resetForm();
-  // };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} ref={form}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h2 className="bold mb-4 text-2xl">Załóż konto</h2>
       <div className="mb-4">
         <Input
-          name="firstName"
+          name="name"
           type="text"
           placeholder="Imię"
-          isError={!!errors.firstName}
+          isError={!!errors.name}
           register={register}
           rules={{
             required: "Imię jest wymagane",
@@ -107,7 +85,7 @@ const RegisterForm = () => {
             },
           }}
         />
-        <InputErrorMessage>{errors.firstName?.message}</InputErrorMessage>
+        <InputErrorMessage>{errors.name?.message}</InputErrorMessage>
       </div>
 
       <div className="mb-4">

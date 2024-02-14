@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { Address } from "../../types/Address";
-import { UserState } from "../../types/UserState";
+import { Address } from "../../types/Address.interface";
+import { UserState } from "../../types/UserState.interface";
 
 const initialState: UserState = {
   _id: "",

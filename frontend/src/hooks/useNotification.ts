@@ -6,6 +6,7 @@ import {
 } from "../store/features/notificationSlice";
 import { useAppDispatch, useAppSelector } from "../store/store";
 
+import { prepareErrorWithDefaultMessage } from "../utils/prepareErrorWithDefaultMessage";
 import { useEffect } from "react";
 
 export const useNotification = (clearTime: number) => {
@@ -14,6 +15,24 @@ export const useNotification = (clearTime: number) => {
 
   const addNewNotification = (message: string, type: NotificationStatus) => {
     dispatch(addNotification({ message, type }));
+  };
+
+  const addNewSuccessNotification = (message: string) => {
+    addNewNotification(message, NotificationStatus.SUCCESS);
+  };
+
+  const addNewErrorNotification = (error: unknown) => {
+    const newError = prepareErrorWithDefaultMessage(error);
+    dispatch(
+      addNotification({
+        message: newError.message,
+        type: NotificationStatus.ERROR,
+      }),
+    );
+  };
+
+  const addNewInfoNotification = (message: string) => {
+    addNewNotification(message, NotificationStatus.INFO);
   };
 
   const closeNotificationHandler = (id: string) => {
@@ -35,5 +54,12 @@ export const useNotification = (clearTime: number) => {
     });
   }, [notifications]);
 
-  return { addNewNotification, notifications, closeNotificationHandler };
+  return {
+    addNewNotification,
+    addNewSuccessNotification,
+    addNewErrorNotification,
+    addNewInfoNotification,
+    notifications,
+    closeNotificationHandler,
+  };
 };

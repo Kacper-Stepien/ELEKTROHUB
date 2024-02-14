@@ -15,6 +15,15 @@ exports.register = catchAsync(async (req, res, next) => {
     });
   }
 
+  // check if user already exists
+  const user = await User.findOne({ email });
+  if (user) {
+    return res.status(409).json({
+      status: "error",
+      message: "Użytkownik o podanym adresie email już istnieje",
+    });
+  }
+
   const newUser = await User.create({
     name,
     surname,

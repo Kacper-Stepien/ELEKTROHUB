@@ -1,8 +1,8 @@
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 import { AnimatePresence } from "framer-motion";
-import LoginForm from "../components/LoginForm";
-import RegisterForm from "../components/RegisterForm";
+import LoginFormContainer from "../components/LoginFormContainer";
+import RegisterFormContainer from "../components/RegisterFormContainer";
 import { useEffect } from "react";
 
 const AuthPage = () => {
@@ -48,9 +48,9 @@ const AuthPage = () => {
 
       <AnimatePresence mode="wait">
         {type === "register" ? (
-          <RegisterForm key="register" />
+          <RegisterFormContainer key="register" />
         ) : (
-          <LoginForm key="login" />
+          <LoginFormContainer key="login" />
         )}
       </AnimatePresence>
     </div>

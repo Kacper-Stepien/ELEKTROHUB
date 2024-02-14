@@ -1,18 +1,27 @@
+import {
+  emailRegex,
+  nameRegex,
+  nickRegex,
+  passwordRegex,
+  phoneRegex,
+  surnameRegex,
+} from "./Regexes";
+
 class Validator {
   static isEmpty = (value: string): boolean => value.trim() === "";
 
   static isEmail = (value: string): boolean => {
-    const regex = /\S+@\S+\.\S+/;
+    const regex = emailRegex;
     return regex.test(value);
   };
 
   static isNick = (value: string): boolean => {
-    const regex = /^[a-z0-9]{5,25}$/;
+    const regex = nickRegex;
     return regex.test(value);
   };
 
   static isPassword = (value: string): boolean => {
-    const regex = /.{8,}/;
+    const regex = passwordRegex;
     return regex.test(value);
   };
 
@@ -21,17 +30,17 @@ class Validator {
   };
 
   static isName = (value: string): boolean => {
-    const regex = /^[A-ZŁŚ][a-złóśćąęń]{1,20}(\s[A-ZŁŚ][a-złóśćąęń]{1,20})?$/;
+    const regex = nameRegex;
     return regex.test(value);
   };
 
   static isSurname = (value: string): boolean => {
-    const regex = /^[A-ZŁŚ][a-złóśćąęń]{1,20}(-[A-ZŁŚ][a-złóśćąęń]{1,20})?$/;
+    const regex = surnameRegex;
     return regex.test(value);
   };
 
   static isPhone = (value: string): boolean => {
-    const regex = /^[0-9]{9}$/;
+    const regex = phoneRegex;
     return regex.test(value);
   };
 }

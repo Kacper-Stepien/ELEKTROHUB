@@ -16,7 +16,9 @@ const LoginForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting, isValid, isSubmitted },
     // setError,
-  } = useForm<FormInputs>();
+  } = useForm<FormInputs>({
+    mode: "onBlur",
+  });
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
 

@@ -6,12 +6,12 @@ import {
   phoneRegex,
   surnameRegex,
 } from "../../utils/regexes";
-import { startLoading, stopLoading } from "../../store/features/loadingSlice";
 
 import Input from "../../ui/Input";
 import InputErrorMessage from "../../ui/InputErrorMessage";
 import PrimaryButton from "../../ui/PrimaryButtont";
 import { useAppDispatch } from "../../store/store";
+import { useGlobalLoading } from "../../hooks/useGlobalLoading";
 import { useRef } from "react";
 
 interface FormInputs {
@@ -25,13 +25,16 @@ interface FormInputs {
 }
 
 const RegisterForm = () => {
+  const { startLoading, stopLoading } = useGlobalLoading();
   const {
     register,
     handleSubmit,
     reset,
     getValues,
     formState: { errors, isSubmitting, isValid, isSubmitted },
-  } = useForm<FormInputs>();
+  } = useForm<FormInputs>({
+    mode: "onBlur",
+  });
 
   const onSubmit: SubmitHandler<FormInputs> = (data, event) => {
     event?.preventDefault();

@@ -10,10 +10,7 @@ import {
 import Input from "../../ui/Input";
 import InputErrorMessage from "../../ui/InputErrorMessage";
 import PrimaryButton from "../../ui/PrimaryButtont";
-import { registerUser } from "../../api/authApi";
-import { useGlobalLoading } from "../../hooks/useGlobalLoading";
-import { useNavigate } from "react-router-dom";
-import { useNotification } from "../../hooks/useNotification";
+import { useRegisterUser } from "../../hooks/useRegisterUser";
 
 interface FormInputs {
   name: string;
@@ -26,45 +23,25 @@ interface FormInputs {
 }
 
 const RegisterForm = () => {
-  const { startLoadingHandler, stopLoadingHandler } = useGlobalLoading();
-  const { addNewSuccessNotification, addNewErrorNotification } =
-    useNotification(3000);
   const {
     register,
     handleSubmit,
-    reset,
     getValues,
     formState: { errors, isValid, isSubmitted },
     setError,
   } = useForm<FormInputs>({
     mode: "onBlur",
   });
-  const navigate = useNavigate();
+  const { register: registerUser } = useRegisterUser(() => {
+    setError("email", {
+      type: "manual",
+      message: "Email jest już zajęty",
+    });
+  });
 
   const onSubmit: SubmitHandler<FormInputs> = async (data, event) => {
     event?.preventDefault();
-    startLoadingHandler();
-    try {
-      const response = await registerUser(data);
-      if (response.statusCode === 409) {
-        setError("email", {
-          type: "manual",
-          message: response.message,
-        });
-        return;
-      }
-      if (!response.success) {
-        throw new Error(response.message || "Coś poszło nie tak");
-      }
-      addNewSuccessNotification(response.message);
-      reset();
-      navigate("/auth/login");
-      addNewSuccessNotification("Możesz się zalogować");
-    } catch (error) {
-      addNewErrorNotification(error);
-    } finally {
-      stopLoadingHandler();
-    }
+    registerUser(data);
   };
 
   return (

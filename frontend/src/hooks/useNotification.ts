@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "../store/store";
 import { prepareErrorWithDefaultMessage } from "../utils/prepareErrorWithDefaultMessage";
 import { useEffect } from "react";
 
-export const useNotification = (clearTime: number) => {
+export const useNotification = (clearTime: number = 3000) => {
   const dispatch = useAppDispatch();
   const { notifications } = useAppSelector((state) => state.notification);
 

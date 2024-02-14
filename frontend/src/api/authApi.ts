@@ -57,7 +57,7 @@ export const loginUser = async (email: string, password: string) => {
       success: true,
       statusCode: response.status,
       message: "Zalogowano",
-      data: data.data,
+      data: data.data.user,
     };
   } catch (error) {
     return createErrorResponseFromError(error);

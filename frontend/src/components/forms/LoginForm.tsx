@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Input from "../../ui/Input";
 import InputErrorMessage from "../../ui/InputErrorMessage";
 import PrimaryButton from "../../ui/PrimaryButtont";
+import { useLoginUser } from "../../hooks/useLoginUser";
 
 interface FormInputs {
   email: string;
@@ -15,12 +16,22 @@ const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isValid, isSubmitted },
-    // setError,
+    setError,
   } = useForm<FormInputs>({
     mode: "onBlur",
   });
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
+  const { login } = useLoginUser(() => {
+    setError("password", {
+      type: "manual",
+      message: "Email lub hasło niepoprawne.",
+    });
+  });
+
+  const onSubmit: SubmitHandler<FormInputs> = async (data, event) => {
+    event?.preventDefault();
+    login(data.email, data.password);
+  };
 
   return (
     <div>
@@ -59,6 +70,7 @@ const LoginForm = () => {
             }}
           />
           <InputErrorMessage>{errors.password?.message}</InputErrorMessage>
+          <InputErrorMessage>{errors.root?.message}</InputErrorMessage>
         </div>
         <button className="mb-4 text-blue-600 hover:underline">
           Nie pamiętam hasła

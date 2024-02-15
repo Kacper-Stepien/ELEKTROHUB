@@ -26,7 +26,6 @@ export const useLoginUser = (handleDataAreInvalid: () => void) => {
       dispatch(setUser(response.data));
       addNewSuccessNotification(response.message);
       navigate("/");
-      addNewSuccessNotification("Możesz się zalogować");
     } catch (error) {
       addNewErrorNotification(error);
     } finally {

@@ -4,7 +4,7 @@ export default {
   darkMode: "class",
   theme: {
     fontFamily: {
-      sans: "Lato", // auto font loading
+      // sans: "Lato", // auto font loading
     },
     extend: {
       colors: {

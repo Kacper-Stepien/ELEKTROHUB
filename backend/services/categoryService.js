@@ -224,5 +224,12 @@ const buildCategoryTree = async (parentId = null) => {
     categories[i].subCategories = await buildCategoryTree(categories[i]._id);
   }
 
+  // For each category, find its parent category or null if it's a root category, only ID
+  for (let i = 0; i < categories.length; i++) {
+    categories[i].parentCategory = await Category.findById(
+      categories[i].parentCategory
+    ).lean();
+  }
+
   return categories;
 };

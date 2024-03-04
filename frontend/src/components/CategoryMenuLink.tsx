@@ -1,16 +1,25 @@
 import { FC } from "react";
+import { NavLink } from "react-router-dom";
 
 interface CategoryMenuLinkProps {
   text: string;
-  icon: JSX.Element;
+  active: boolean;
+  icon?: JSX.Element;
 }
 
-const CategoryMenuLink: FC<CategoryMenuLinkProps> = ({ text, icon }) => {
+const CategoryMenuLink: FC<CategoryMenuLinkProps> = ({
+  text,
+  active,
+  icon,
+}) => {
   return (
-    <li className="flex items-center gap-2 hover:cursor-pointer py-1 md:py-2 px-4 hover:bg-blue-500 transition ">
+    <NavLink
+      to={`/category/${text}`}
+      className={`flex items-center gap-2 rounded-tl rounded-tr  px-4 py-1  hover:cursor-pointer ${active ? "bg-gray-200 text-blue-900 dark:bg-white" : ""} md:py-2`}
+    >
       {icon}
       {text}
-    </li>
+    </NavLink>
   );
 };
 

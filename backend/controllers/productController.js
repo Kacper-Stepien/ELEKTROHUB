@@ -5,12 +5,20 @@ const userIsLoggedIn = require("../middlewares/userIsLoggedIn");
 const userIsAdmin = require("../middlewares/userIsAdmin");
 const pagination = require("../middlewares/pagination");
 const sorting = require("../middlewares/sorting");
+const { resizePhotos } = require("../middlewares/resizePhotos");
+const { uploadPhotos } = require("../middlewares/uploadPhotos");
 
 const ProductController = express.Router();
 
 ProductController.route("/")
   .get(pagination, sorting, productController.getAllProducts)
-  .post(userIsLoggedIn, userIsAdmin, productController.createProduct);
+  .post(
+    userIsLoggedIn,
+    userIsAdmin,
+    uploadPhotos,
+    resizePhotos,
+    productController.createProduct
+  );
 
 ProductController.route("/:id")
   .put(userIsLoggedIn, userIsAdmin, productController.updateProduct)

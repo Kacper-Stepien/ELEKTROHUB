@@ -6,7 +6,15 @@ const catchAsync = require("../utils/catchAsync");
 // @route    POST /api/products
 // @access   Private/Admin
 exports.createProduct = catchAsync(async (req, res, next) => {
-  const { name, category, description, attributes, price, stock } = req.body;
+  const { name, category, description, attributes, price, stock, photos } =
+    req.body;
+  console.log(photos);
+  if (!photos) {
+    return res.status(400).json({
+      status: "error",
+      message: "Produkt musi mieć przynajmniej jedno zdjęcie",
+    });
+  }
 
   // Valid data
   if (!name || !category || !description || !price || !stock) {
@@ -38,6 +46,9 @@ exports.createProduct = catchAsync(async (req, res, next) => {
       price,
       stock,
     });
+
+    product.photos = photos;
+    await product.save();
 
     return res.status(201).json({
       status: "success",

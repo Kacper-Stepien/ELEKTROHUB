@@ -11,7 +11,8 @@ const getCategoryIcon = (categoryName: string) => {
     return <FaLaptop />;
   } else if (
     lowercaseName.includes("smartphone") ||
-    lowercaseName.includes("telefon")
+    lowercaseName.includes("telefon") ||
+    lowercaseName.includes("smartfon")
   ) {
     return <MdOutlineSmartphone />;
   } else if (lowercaseName.includes("kamera")) {

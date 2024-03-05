@@ -2,23 +2,28 @@ import { FC } from "react";
 import { NavLink } from "react-router-dom";
 
 interface CategoryMenuLinkProps {
-  text: string;
+  name: string;
+  path: string;
   active: boolean;
+  onClick?: () => void;
   icon?: JSX.Element;
 }
 
 const CategoryMenuLink: FC<CategoryMenuLinkProps> = ({
-  text,
+  name,
+  path,
   active,
+  onClick,
   icon,
 }) => {
   return (
     <NavLink
-      to={`/category/${text}`}
-      className={`flex items-center gap-2 rounded-tl rounded-tr  px-4 py-1  hover:cursor-pointer ${active ? "bg-gray-200 text-blue-900 dark:bg-white" : ""} md:py-2`}
+      to={`/${path}`}
+      onClick={onClick}
+      className={`flex items-center gap-2 rounded-tl rounded-tr  px-6 py-1 hover:cursor-pointer ${active ? "bg-gray-200 text-blue-900 dark:bg-blue-50" : ""} md:py-2`}
     >
       {icon}
-      {text}
+      {name.toUpperCase()}
     </NavLink>
   );
 };

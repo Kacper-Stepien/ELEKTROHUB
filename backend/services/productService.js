@@ -202,27 +202,53 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
   });
 });
 
-// @desc     Get products by category
+// @desc     Get products by category name
 // @route    GET /api/products/category/:category
 // @access   Public
 exports.getProductsByCategory = catchAsync(async (req, res, next) => {
   const category = req.params.category;
+  const page = req.query.page || 1;
+  const perPage = req.query.perPage || 20;
+  const skip = (page - 1) * perPage;
 
   // Check if category exists
-  const categoryExists = await Category.findById(category);
+  const categoryExists = await Category.findOne({ name: category });
   if (!categoryExists) {
     return res.status(404).json({
       status: "error",
       message: "Kategoria nie istnieje",
     });
   }
-
-  const products = await Product.find({ category })
-    .skip(req.pagination.skip)
-    .limit(req.pagination.limit)
+  const categoryWithDescendantsCategories =
+    await getAllDescendantsCategoriesIDs(categoryExists._id);
+  const products = await Product.find({
+    category: { $in: categoryWithDescendantsCategories },
+  })
+    .skip(skip)
+    .limit(perPage)
     .sort(req.sort);
+
+  const totalProducts = await Product.countDocuments({
+    category: { $in: categoryWithDescendantsCategories },
+  });
   res.status(200).json({
     status: "success",
     products,
+    totalProducts,
   });
 });
+
+async function getAllDescendantsCategoriesIDs(categoryId) {
+  const category = await Category.findById(categoryId);
+  let categoryIds = [category._id];
+
+  if (category.subCategories.length > 0) {
+    for (const subCategory of category.subCategories) {
+      const subCategoryIds = await getAllDescendantsCategoriesIDs(
+        subCategory._id
+      );
+      categoryIds = categoryIds.concat(subCategoryIds);
+    }
+  }
+  return categoryIds;
+}

@@ -1,8 +1,8 @@
-import CategoriesMenu from "../components/CategoriesMenu";
+import CategoriesMenu from "../components/categories/CategoriesMenu";
 import Footer from "../components/Footer";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../ui/LoadingSpinner";
 import Navbar from "../components/Navbar";
-import Notifications from "./Notifications";
+import Notifications from "../ui/Notifications";
 import { Outlet } from "react-router-dom";
 import { useAppSelector } from "../store/store";
 
@@ -13,7 +13,7 @@ const AppLayout = () => {
 
   return (
     <div
-      className={`flex min-h-screen  flex-col justify-between bg-blue-50 dark:bg-primaryDark ${
+      className={`flex min-h-screen  flex-col justify-between bg-blue-50 text-primaryDark dark:bg-primaryDark dark:text-blue-50 ${
         isLoading ? "h-screen overflow-hidden" : ""
       }`}
     >

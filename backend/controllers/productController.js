@@ -8,13 +8,11 @@ const sorting = require("../middlewares/sorting");
 
 const ProductController = express.Router();
 
-ProductController
-  .route("/")
+ProductController.route("/")
   .get(pagination, sorting, productController.getAllProducts)
   .post(userIsLoggedIn, userIsAdmin, productController.createProduct);
 
-ProductController
-  .route("/:id")
+ProductController.route("/:id")
   .put(userIsLoggedIn, userIsAdmin, productController.updateProduct)
   .delete(userIsLoggedIn, userIsAdmin, productController.deleteProduct);
 
@@ -29,8 +27,7 @@ ProductController.get(
   productController.getProductsByCategory
 );
 
-ProductController
-  .route("/:id/reviews")
+ProductController.route("/:id/reviews")
   .get(reviewController.getReviews)
   .post(userIsLoggedIn, reviewController.createReview);
 

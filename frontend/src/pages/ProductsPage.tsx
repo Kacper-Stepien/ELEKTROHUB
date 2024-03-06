@@ -3,6 +3,7 @@ import { getProductsByCategory } from "../api/productsApi";
 import { useEffect, useState } from "react";
 import { Product } from "../types/Product.interface";
 import ProductCard from "../components/ProductCard";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 export default function ProductsPage() {
   const { category, subcategory, subsubcategory } = useParams();
@@ -24,15 +25,14 @@ export default function ProductsPage() {
   };
 
   useEffect(() => {
+    console.log("pobieranie");
     downloadProducts();
-  }, []);
+  }, [category, subcategory, subsubcategory]);
 
   return (
     <div className="w-full">
-      <p>
-        {category} {subcategory} {subsubcategory}
-      </p>
-      <div className="flex max-w-4xl flex-col gap-6">
+      <Breadcrumbs />
+      <div className="mt-6 flex max-w-4xl flex-col gap-6">
         {products &&
           products.map((product) => (
             <div key={product._id}>

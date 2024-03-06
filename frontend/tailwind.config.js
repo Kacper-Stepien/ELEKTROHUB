@@ -9,6 +9,7 @@ export default {
     extend: {
       colors: {
         primaryDark: "#0F172A",
+        secondaryDark: "#0c1222",
       },
       screens: {
         "3xl": "1800px",

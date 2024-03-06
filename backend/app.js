@@ -29,6 +29,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static(`${__dirname}/public`));
+
 app.use("/api/users", UserController);
 app.use("/api/categories", CategoryController);
 app.use("/api/products", ProductController);

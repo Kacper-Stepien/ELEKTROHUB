@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { getProductsByCategory } from "../api/productsApi";
 import { useEffect, useState } from "react";
 import { Product } from "../types/Product.interface";
+import ProductCard from "../components/ProductCard";
 
 export default function ProductsPage() {
   const { category, subcategory, subsubcategory } = useParams();
@@ -24,19 +25,20 @@ export default function ProductsPage() {
 
   useEffect(() => {
     downloadProducts();
-  }, [category]);
+  }, []);
 
   return (
-    <div className="">
+    <div className="w-full">
       <p>
         {category} {subcategory} {subsubcategory}
       </p>
-      <div>
-        {products.map((product) => (
-          <div key={product._id} className="bg-red-500">
-            {product.name}
-          </div>
-        ))}
+      <div className="flex max-w-4xl flex-col gap-6">
+        {products &&
+          products.map((product) => (
+            <div key={product._id}>
+              <ProductCard product={product} />
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -56,7 +56,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  images: {
+  photos: {
     type: [String],
     required: [true, "Produkt musi mieć przynamniej jedno zdjęcie"],
   },

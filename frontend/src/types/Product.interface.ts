@@ -15,5 +15,5 @@ export interface Product {
       value: string;
     },
   ];
-  images: [string];
+  photos: [string];
 }

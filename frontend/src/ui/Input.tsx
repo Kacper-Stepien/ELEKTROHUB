@@ -25,7 +25,7 @@ const Input: FC<InputProps> = ({
       type={type}
       placeholder={placeholder}
       {...register(name, rules)}
-      className={`w-full rounded border-2 p-2  ${isError && "border-red-600 focus:border-red-600"} focus:border-blue-600 focus:outline-none`}
+      className={`w-full rounded border-2 p-2  ${isError && "border-red-600 focus:border-red-600"} focus:border-blue-600 focus:outline-none dark:border-secondaryDark dark:bg-secondaryDark dark:focus:border-blue-500`}
     />
   );
 };

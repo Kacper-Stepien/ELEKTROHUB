@@ -11,9 +11,8 @@ exports.resizePhotos = catchAsync(async (req, res, next) => {
     req.files.map(async (_, i) => {
       const fileName = `${name.replace(" ", "-")}-${Date.now()}-${i + 1}.jpeg`;
       await sharp(req.files[i].buffer)
-        .resize(1920, 1080)
-        .toFormat("jpeg")
-        .jpeg({ quality: 90 })
+        .toFormat("webp")
+        .webp({ quality: 90 })
         .toFile(`public/images/products/${fileName}`);
       photos.push(fileName);
     })

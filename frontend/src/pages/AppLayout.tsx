@@ -13,7 +13,7 @@ const AppLayout = () => {
 
   return (
     <div
-      className={`flex min-h-screen  flex-col justify-between bg-blue-50 text-primaryDark dark:bg-primaryDark dark:text-blue-50 ${
+      className={`flex min-h-screen  flex-col justify-between bg-blue-50 text-primaryDark dark:bg-secondaryDark dark:text-blue-50 ${
         isLoading ? "h-screen overflow-hidden" : ""
       }`}
     >

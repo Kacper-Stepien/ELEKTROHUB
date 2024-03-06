@@ -17,7 +17,7 @@ const RegisterFormContainer = () => {
       exit="exit"
       transition={{ duration: 0.2 }}
     >
-      <div className="3xl:text-md m-auto grid   max-w-[64rem] grid-cols-2 justify-center gap-16 rounded-lg bg-white  p-8 text-sm shadow-md">
+      <div className="3xl:text-md m-auto grid   max-w-[64rem] grid-cols-2 justify-center gap-16 rounded-lg bg-primaryDark  p-8 text-sm shadow-md">
         <RegisterForm />
         <BenefitsList />
       </div>

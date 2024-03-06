@@ -8,7 +8,6 @@ const catchAsync = require("../utils/catchAsync");
 exports.createProduct = catchAsync(async (req, res, next) => {
   const { name, category, description, attributes, price, stock, photos } =
     req.body;
-  console.log(photos);
   if (!photos) {
     return res.status(400).json({
       status: "error",

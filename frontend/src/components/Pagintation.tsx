@@ -19,8 +19,9 @@ const Pagination: FC<PaginationProps> = ({
 
   const sideButtons = Math.floor(maxNumberOfVisibleButtons / 2);
 
-  const activePageClass = "bg-blue-600";
-  const elementClass = "flex w-6 items-center justify-center rounded-md";
+  const activePageClass = "bg-blue-600 text-white";
+  const elementClass =
+    "flex w-8 h-8 items-center justify-center rounded-md hover:border-2 border-blue-600 transition duration-300 ease-in-out cursor-pointer";
 
   const renderPageButtons = () => {
     const start = Math.max(
@@ -31,27 +32,35 @@ const Pagination: FC<PaginationProps> = ({
 
     if (start > 1) {
       pageButtons.push(
-        <li
-          key="first"
-          className={`${elementClass} ${page === 1 ? activePageClass : ""}`}
-        >
-          <NavLink to={`?page=${1}`} onClick={() => goToPage(1)}>
+        <li key="first">
+          <NavLink
+            to={`?page=${1}`}
+            className={`${elementClass} ${page === 1 ? activePageClass : ""}`}
+            onClick={() => {
+              console.log("goToPage(1)");
+            }}
+          >
             1
           </NavLink>
         </li>,
       );
       if (start > 2) {
-        pageButtons.push(<li key="dots1">...</li>);
+        pageButtons.push(
+          <li key="dots1" className="cursor-default">
+            ...
+          </li>,
+        );
       }
     }
 
     for (let i = start; i <= end; i++) {
       pageButtons.push(
-        <li
-          key={i}
-          className={`${elementClass} ${i === page ? activePageClass : ""}`}
-        >
-          <NavLink to={`?page=${i}`} onClick={() => goToPage(i)}>
+        <li key={i}>
+          <NavLink
+            to={`?page=${i}`}
+            className={`${elementClass} ${i === page ? activePageClass : ""}`}
+            onClick={() => goToPage(i)}
+          >
             {i}
           </NavLink>
         </li>,
@@ -60,14 +69,19 @@ const Pagination: FC<PaginationProps> = ({
 
     if (end < total) {
       if (end < total - 1) {
-        pageButtons.push(<li key="dots2">...</li>);
+        pageButtons.push(
+          <li key="dots2" className="cursor-default">
+            ...
+          </li>,
+        );
       }
       pageButtons.push(
-        <li
-          key="last"
-          className={`${elementClass} ${total === page ? activePageClass : ""}`}
-        >
-          <NavLink to={`?page=${total}`} onClick={() => goToPage(total)}>
+        <li key="last">
+          <NavLink
+            to={`?page=${total}`}
+            className={`${elementClass} ${total === page ? activePageClass : ""}`}
+            onClick={() => goToPage(total)}
+          >
             {total}
           </NavLink>
         </li>,
@@ -78,15 +92,23 @@ const Pagination: FC<PaginationProps> = ({
   renderPageButtons();
 
   return (
-    <ul className="flex items-center justify-center gap-4">
-      <li className={`${page === 1 ? "invisible" : ""}`}>
-        <NavLink to={`?page=${page - 1}`} onClick={() => goToPage(page - 1)}>
+    <ul className="flex items-center justify-center gap-3">
+      <li>
+        <NavLink
+          to={`?page=${page - 1}`}
+          className={`${page === 1 ? "invisible" : ""} ${elementClass} ${activePageClass}`}
+          onClick={() => goToPage(page - 1)}
+        >
           <FaAngleLeft />
         </NavLink>
       </li>
       {pageButtons}
-      <li className={`${page === total ? "invisible" : ""}`}>
-        <NavLink to={`?page=${page + 1}`} onClick={() => goToPage(page + 1)}>
+      <li>
+        <NavLink
+          to={`?page=${page + 1}`}
+          className={`${page === total ? "invisible" : ""} ${elementClass} ${activePageClass}`}
+          onClick={() => goToPage(page + 1)}
+        >
           <FaAngleRight />
         </NavLink>
       </li>

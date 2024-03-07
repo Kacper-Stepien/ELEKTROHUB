@@ -1,15 +1,18 @@
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { getProductsByCategory } from "../api/productsApi";
 import { useEffect, useState } from "react";
 import { Product } from "../types/Product.interface";
 import ProductCard from "../components/ProductCard";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Pagination from "../components/Pagintation";
+import usePagination from "../hooks/usePagination";
 
 export default function ProductsPage() {
   const { category, subcategory, subsubcategory } = useParams();
   const [products, setProducts] = useState<Product[]>([]);
   const [totalProducts, setTotalProducts] = useState(0);
+  const { page } = usePagination();
+  console.log(`page: ${page}`);
 
   const downloadProducts = async () => {
     if (!category) {
@@ -40,12 +43,12 @@ export default function ProductsPage() {
               <ProductCard product={product} />
             </div>
           ))}
+        <Pagination
+          page={parseInt(page!)}
+          total={30}
+          goToPage={(page: number) => console.log(page)}
+        />
       </div>
-      <Pagination
-        page={22}
-        total={30}
-        goToPage={(page: number) => console.log(page)}
-      />
     </div>
   );
 }

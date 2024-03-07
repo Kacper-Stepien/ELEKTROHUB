@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Product } from "../types/Product.interface";
 import ProductCard from "../components/ProductCard";
 import Breadcrumbs from "../components/Breadcrumbs";
+import Pagination from "../components/Pagintation";
 
 export default function ProductsPage() {
   const { category, subcategory, subsubcategory } = useParams();
@@ -40,6 +41,11 @@ export default function ProductsPage() {
             </div>
           ))}
       </div>
+      <Pagination
+        page={22}
+        total={30}
+        goToPage={(page: number) => console.log(page)}
+      />
     </div>
   );
 }

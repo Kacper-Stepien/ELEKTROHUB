@@ -5,7 +5,7 @@ import {
   passwordRegex,
   phoneRegex,
   surnameRegex,
-} from "./Regexes";
+} from "../consts/regexes";
 
 class Validator {
   static isEmpty = (value: string): boolean => value.trim() === "";

@@ -5,7 +5,7 @@ import {
   passwordRegex,
   phoneRegex,
   surnameRegex,
-} from "../../utils/regexes";
+} from "../../consts/regexes";
 
 import Input from "../../ui/Input";
 import InputErrorMessage from "../../ui/InputErrorMessage";

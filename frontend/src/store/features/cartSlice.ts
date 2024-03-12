@@ -58,7 +58,7 @@ const cartSlice = createSlice({
             existingProduct.product,
           );
         }
-        state.totalPrice -= calculateTotalProductPrice(existingProduct);
+        state.totalPrice -= getProductPrice(existingProduct.product);
       }
     },
     deleteProductFromCart(state, action: PayloadAction<string>) {

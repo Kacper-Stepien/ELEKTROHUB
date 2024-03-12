@@ -2,14 +2,14 @@ import { FC, ReactNode } from "react";
 
 interface PrimaryButtonProps {
   type: "submit" | "button";
-  disabled: boolean;
+  disabled?: boolean;
   onClick?: () => void;
   children: ReactNode;
 }
 
 const PrimaryButton: FC<PrimaryButtonProps> = ({
   type,
-  disabled,
+  disabled = false,
   onClick,
   children,
 }) => {

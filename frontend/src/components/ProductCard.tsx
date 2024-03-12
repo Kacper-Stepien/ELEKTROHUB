@@ -7,6 +7,8 @@ import AvailabilityBar from "./AvailabilityBar";
 import PrimaryButton from "../ui/PrimaryButtont";
 import { FaCartPlus } from "react-icons/fa";
 import ProductCardFooter from "./ProductCardFooter";
+import { useAppDispatch } from "../store/store";
+import { addProductToCart } from "../store/features/cartSlice";
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
@@ -14,6 +16,7 @@ interface ProductCardProps {
   product: Product;
 }
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
+  const dispatch = useAppDispatch();
   const { name, photos, averageRating, numberOfReviews, price, stock } =
     product;
   const imgageUrl = `${API_URL}/images/products/${photos[0]}`;
@@ -36,7 +39,13 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
       <div className="flex flex-col gap-8 border-l-2 pl-6 dark:border-secondaryDark">
         <ProductPrice price={price} salePrice={8000} />
         <AvailabilityBar stock={stock} total={10} />
-        <PrimaryButton type="button" disabled={stock === 0} onClick={() => {}}>
+        <PrimaryButton
+          type="button"
+          disabled={stock === 0}
+          onClick={() => {
+            dispatch(addProductToCart(product));
+          }}
+        >
           <FaCartPlus className="text-xl" />
           Do koszyka
         </PrimaryButton>

@@ -1,16 +1,19 @@
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+import CartButton from "./cartButton/CartButton";
+import FloatingButton from "../ui/FloatingButton";
 
 const NavbarButtons = () => {
   return (
-    <div className="flex gap-4 items-center">
-      <button className="btn btn-outline-secondary text-blue-950 dark:text-blue-100 text-xl flex flex-col items-center hover:scale-110 transition-all">
-        <FaShoppingCart className="" />
-        <p className="text-sm">Koszyk</p>
-      </button>
-      <button className="btn btn-outline-secondary text-blue-950 dark:text-blue-100 text-xl flex flex-col items-center hover:scale-110 transition-all">
-        <FaHeart className="" />
-        <p className="text-sm">Ulubione</p>
-      </button>
+    <div className="flex items-center gap-4">
+      <CartButton />
+
+      <FloatingButton
+        icon={<FaHeart className="" />}
+        name="Ulubione"
+        itemCount={1}
+      >
+        <h3 className="mb-4 text-lg font-semibold">Ulubione</h3>
+      </FloatingButton>
     </div>
   );
 };

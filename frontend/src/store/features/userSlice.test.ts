@@ -114,7 +114,7 @@ test("clearUser action resets user state to initial state", () => {
         houseNumber: "1",
         apartmentNumber: "2",
       },
-    })
+    }),
   );
 
   store.dispatch(clearUser());

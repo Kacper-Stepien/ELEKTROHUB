@@ -86,4 +86,5 @@ export const {
   deleteProductFromCart,
   clearCart,
 } = cartSlice.actions;
+export { getProductPrice, calculateTotalProductPrice };
 export default cartSlice.reducer;

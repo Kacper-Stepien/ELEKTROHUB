@@ -5,6 +5,7 @@ import loadingReucer from "./features/loadingSlice";
 import notificationReducer from "./features/notificationSlice";
 import themeReducer from "./features/themeSlice";
 import userSlice from "./features/userSlice";
+import cartSlice from "./features/cartSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     theme: themeReducer,
     loading: loadingReucer,
     notification: notificationReducer,
+    cart: cartSlice,
   },
 });
 

@@ -6,6 +6,7 @@ import notificationReducer from "./features/notificationSlice";
 import themeReducer from "./features/themeSlice";
 import userSlice from "./features/userSlice";
 import cartSlice from "./features/cartSlice";
+import favouriteProductsSlice from "./features/favouriteProductsSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     loading: loadingReucer,
     notification: notificationReducer,
     cart: cartSlice,
+    favouriteProducts: favouriteProductsSlice,
   },
 });
 

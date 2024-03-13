@@ -1,5 +1,5 @@
 import { FaHeart } from "react-icons/fa";
-import CartButton from "./cartButton/CartButton";
+import CartButton from "./CartButton/CartButton";
 import FloatingButton from "../ui/FloatingButton";
 
 const NavbarButtons = () => {

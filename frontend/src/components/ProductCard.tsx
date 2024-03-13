@@ -5,10 +5,15 @@ import ProductPrice from "./ProductPrice";
 import ProductFeatures from "./ProductFeatures";
 import AvailabilityBar from "./AvailabilityBar";
 import PrimaryButton from "../ui/PrimaryButtont";
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartPlus, FaHeart } from "react-icons/fa";
 import ProductCardFooter from "./ProductCardFooter";
 import { useAppDispatch } from "../store/store";
 import { addProductToCart } from "../store/features/cartSlice";
+import {
+  addProductToFavorite,
+  removeProductFromFavorite,
+} from "../store/features/favouriteProductsSlice";
+import useProductIsInFavourites from "../hooks/useProductIsInFavourites";
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
@@ -16,6 +21,7 @@ interface ProductCardProps {
   product: Product;
 }
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
+  const isProductInFavourites = useProductIsInFavourites(product._id);
   const dispatch = useAppDispatch();
   const { name, photos, averageRating, numberOfReviews, price, stock } =
     product;
@@ -49,6 +55,27 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
           <FaCartPlus className="text-xl" />
           Do koszyka
         </PrimaryButton>
+        {isProductInFavourites ? (
+          <button
+            className="mx-auto flex w-max items-center justify-center gap-2  text-sm transition-all hover:text-red-500"
+            onClick={() => {
+              dispatch(removeProductFromFavorite(product._id));
+            }}
+          >
+            <FaHeart />
+            <span>Usuń z ulubionych</span>
+          </button>
+        ) : (
+          <button
+            className="mx-auto flex w-max items-center justify-center gap-2  text-sm transition-all hover:text-red-500"
+            onClick={() => {
+              dispatch(addProductToFavorite(product));
+            }}
+          >
+            <FaHeart />
+            <span>Dodaj do ulubionych</span>
+          </button>
+        )}
       </div>
       <div className="grow-1 basis-full ">
         <ProductCardFooter product={product} />

@@ -30,7 +30,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="flex w-full flex-wrap justify-between gap-6 rounded-md bg-white p-6 text-primaryDark shadow-sm dark:bg-primaryDark dark:text-blue-50">
       {product.photos.length > 0 && (
-        <img src={imgageUrl} alt={`${name}-1-photo`} className="w-52" />
+        <img src={imgageUrl} alt={`${name}-1-photo`} className="h-min w-56 " />
       )}
       <div className="flex flex-col gap-1">
         <h2 className="font-bold ">{name}</h2>

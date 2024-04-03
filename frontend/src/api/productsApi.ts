@@ -1,3 +1,4 @@
+import { PRODUCTS_PER_PAGE } from "../../constants";
 const API_URL = import.meta.env.VITE_API_URL as string;
 
 import { createErrorResponse, createErrorResponseFromError } from "./utils";
@@ -5,7 +6,7 @@ import { createErrorResponse, createErrorResponseFromError } from "./utils";
 export const getProductsByCategory = async (
   categoryName: string,
   page: number = 1,
-  perPage: number = 20,
+  perPage: number = PRODUCTS_PER_PAGE,
 ) => {
   try {
     const response = await fetch(

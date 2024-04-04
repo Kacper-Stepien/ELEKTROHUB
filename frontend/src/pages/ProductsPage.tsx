@@ -46,7 +46,7 @@ export default function ProductsPage() {
   }, [category, subcategory, subsubcategory, currentPage, totalPages]);
 
   return (
-    <div className="flex w-full grow items-center justify-center ">
+    <div className="flex w-full grow items-center justify-center">
       {isLoading && (
         <div className="flex h-full">
           <LoadingSpinner fullScreen={false} />

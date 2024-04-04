@@ -7,6 +7,7 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import Pagination from "../components/Pagintation";
 import usePagination from "../hooks/usePagination";
 import { PRODUCTS_PER_PAGE } from "../../constants";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 export default function ProductsPage() {
   const { category, subcategory, subsubcategory } = useParams();
@@ -45,10 +46,14 @@ export default function ProductsPage() {
   }, [category, subcategory, subsubcategory, currentPage, totalPages]);
 
   return (
-    <div className="w-full">
-      {isLoading && <div>Ładowanie...</div>}
+    <div className="flex w-full grow items-center justify-center ">
+      {isLoading && (
+        <div className="flex h-full">
+          <LoadingSpinner fullScreen={false} />
+        </div>
+      )}
       {!isLoading && (
-        <>
+        <div>
           <Breadcrumbs />
           <div className="mt-6 flex max-w-4xl flex-col gap-6">
             {products &&
@@ -65,7 +70,7 @@ export default function ProductsPage() {
               />
             )}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

@@ -14,6 +14,7 @@ import {
   removeProductFromFavorite,
 } from "../store/features/favouriteProductsSlice";
 import useProductIsInFavourites from "../hooks/useProductIsInFavourites";
+import { useNotification } from "../hooks/useNotification";
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
@@ -23,6 +24,7 @@ interface ProductCardProps {
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const isProductInFavourites = useProductIsInFavourites(product._id);
   const dispatch = useAppDispatch();
+  const { addNewSuccessNotification } = useNotification();
   const { name, photos, averageRating, numberOfReviews, price, stock } =
     product;
   const imgageUrl = `${API_URL}/images/products/${photos[0]}`;
@@ -50,6 +52,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
           disabled={stock === 0}
           onClick={() => {
             dispatch(addProductToCart(product));
+            addNewSuccessNotification("Produkt dodano do koszyka");
           }}
         >
           <FaCartPlus className="text-xl" />

@@ -21,7 +21,7 @@ const AppLayout = () => {
         <Navbar />
         <CategoriesMenu />
       </div>
-      <div className=" flex grow px-4 py-4 md:px-6 md:py-6 ">
+      <div className="growpx-4 flex h-full py-4 md:px-6 md:py-6">
         <Outlet />
       </div>
       <Footer />

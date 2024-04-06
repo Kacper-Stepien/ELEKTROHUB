@@ -1,22 +1,16 @@
 const API_URL = import.meta.env.VITE_API_URL as string;
-
-import { createErrorResponse, createErrorResponseFromError } from "./utils";
+import { Category } from "../types/Category.interface";
+const ERROR_MESSAGE = import.meta.env.VITE_ERROR_MESSAGE as string;
 
 export const getCategories = async () => {
-    try {
-        const response = await fetch(`${API_URL}/api/categories`);
-        const data = await response.json();
-        if (!response.ok) {
-            return createErrorResponse(response.status, data.message);
-        }
-        return {
-            success: true,
-            statusCode: response.status,
-            message: "Pobrano kategorie",
-            data: data.data.categories,
-        };
+  try {
+    const response = await fetch(`${API_URL}/api/categories`);
+    const data = await response.json();
+    if (!response.ok) {
+      return Promise.reject(new Error(data.message));
     }
-    catch (error) {
-        return createErrorResponseFromError(error);
-    }
-}
+    return Promise.resolve(data.data.categories as Category[]);
+  } catch (error) {
+    return Promise.reject(new Error(ERROR_MESSAGE));
+  }
+};

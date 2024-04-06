@@ -215,21 +215,41 @@ exports.getAllCategories = catchAsync(async (req, res, next) => {
   });
 });
 
-const buildCategoryTree = async (parentId = null) => {
-  // Find all categories with parentCategory equal to parentId
-  const categories = await Category.find({ parentCategory: parentId }).lean();
+const buildCategoryTree = async () => {
+  const allCategories = await Category.find().lean();
 
-  // For each category, find its subcategories
-  for (let i = 0; i < categories.length; i++) {
-    categories[i].subCategories = await buildCategoryTree(categories[i]._id);
-  }
+  const categoriesById = allCategories.reduce((acc, category) => {
+    acc[category._id] = category;
+    return acc;
+  }, {});
 
-  // For each category, find its parent category or null if it's a root category, only ID
-  for (let i = 0; i < categories.length; i++) {
-    categories[i].parentCategory = await Category.findById(
-      categories[i].parentCategory
-    ).lean();
-  }
+  const childrenMap = {};
 
-  return categories;
+  allCategories.forEach((category) => {
+    const parentId = category.parentCategory;
+    if (!childrenMap[parentId]) {
+      childrenMap[parentId] = [];
+    }
+    childrenMap[parentId].push(category);
+  });
+
+  const buildTree = (categoryId) => {
+    const category = categoriesById[categoryId];
+    if (!category) return null;
+
+    const children = childrenMap[categoryId] || [];
+    return {
+      ...category,
+      subCategories: children.map((child) => buildTree(child._id)),
+    };
+  };
+
+  const rootCategories = allCategories.filter(
+    (category) => !category.parentCategory
+  );
+  const categoryTree = rootCategories.map((category) =>
+    buildTree(category._id)
+  );
+
+  return categoryTree;
 };

@@ -41,7 +41,7 @@ const FloatingButton: FC<FloatingButtonProps> = ({
         )}
       </button>
       {isHovering && itemCount > 0 && (
-        <div className="absolute right-[-20px] top-full max-h-96 w-[30rem] overflow-y-auto rounded-md  bg-white p-4 text-sm shadow-md dark:bg-primaryDark">
+        <div className="absolute right-[-20px] top-full z-10 max-h-96 w-[30rem] overflow-y-auto  rounded-md bg-white p-4 text-sm shadow-md dark:bg-primaryDark">
           {children}
         </div>
       )}

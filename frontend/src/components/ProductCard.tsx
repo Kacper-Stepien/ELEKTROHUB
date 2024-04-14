@@ -15,6 +15,7 @@ import {
 } from "../store/features/favouriteProductsSlice";
 import useProductIsInFavourites from "../hooks/useProductIsInFavourites";
 import { useNotification } from "../hooks/useNotification";
+import { NavLink } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
@@ -32,10 +33,13 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="flex w-full flex-wrap justify-between gap-6 rounded-md bg-white p-6 text-primaryDark shadow-sm dark:bg-primaryDark dark:text-blue-50">
       {product.photos.length > 0 && (
-        <img src={imgageUrl} alt={`${name}-1-photo`} className="h-min w-56 " />
+        <img src={imgageUrl} alt={`${name}-1-photo`} className="h-min w-56" />
       )}
       <div className="flex flex-col gap-1">
-        <h2 className="font-bold ">{name}</h2>
+        <NavLink to={`/product/${product._id}`}>
+          <h2 className="font-bold ">{name}</h2>
+        </NavLink>
+
         <ProductRatingStars
           averageRating={averageRating}
           numberOfReviews={numberOfReviews}

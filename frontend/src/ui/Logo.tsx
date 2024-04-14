@@ -1,6 +1,7 @@
 import LogoDark from "../assets/logo-dark.png";
 import LogoLight from "../assets/logo-light.png";
 import { useAppSelector } from "../store/store";
+import { NavLink } from "react-router-dom";
 
 const Logo = () => {
   const theme = useAppSelector((state) => state.theme.theme);
@@ -8,9 +9,9 @@ const Logo = () => {
   const logoImage = theme === "dark" ? LogoDark : LogoLight;
 
   return (
-    <div className="hover:scale-110 transition-all cursor-pointer">
+    <NavLink className="cursor-pointer transition-all hover:scale-110" to="/">
       <img src={logoImage} id="Logo" alt="Logo" className="w-full" />
-    </div>
+    </NavLink>
   );
 };
 
